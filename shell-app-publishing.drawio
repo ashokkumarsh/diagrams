@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-01-31T17:32:19.149Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="5f4J0KtPRj-0Vk6dkVJK" version="20.8.13" type="github">
+<mxfile host="app.diagrams.net" modified="2023-01-31T17:37:28.564Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="z9KtPpQj_Vrbpwf7_h4u" version="20.8.13" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1306" dy="726" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -42,7 +42,7 @@
             <mxPoint y="1" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="8ZYj_ryop38k5bYqxM0Q-11" value="Register Application with type .wgt" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="8ZYj_ryop38k5bYqxM0Q-11" value="&lt;a href=&quot;https://developer.samsung.com/signage/distribute/application-publication/application-publication-process.html#publishing-updated-applications&quot;&gt;Register Application&lt;/a&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="209" y="340" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8ZYj_ryop38k5bYqxM0Q-12" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8ZYj_ryop38k5bYqxM0Q-8" target="8ZYj_ryop38k5bYqxM0Q-11">
@@ -199,6 +199,21 @@
         <mxCell id="8ZYj_ryop38k5bYqxM0Q-64" value="YES" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="8ZYj_ryop38k5bYqxM0Q-63">
           <mxGeometry x="-0.1818" y="1" relative="1" as="geometry">
             <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8ZYj_ryop38k5bYqxM0Q-65" value="Account Type" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="620" y="70" width="140" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="8ZYj_ryop38k5bYqxM0Q-66" value="Public Account" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="8ZYj_ryop38k5bYqxM0Q-65">
+          <mxGeometry y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8ZYj_ryop38k5bYqxM0Q-67" value="Partner Account" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="8ZYj_ryop38k5bYqxM0Q-65">
+          <mxGeometry y="60" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8ZYj_ryop38k5bYqxM0Q-69" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=-0.007;entryY=0.178;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8ZYj_ryop38k5bYqxM0Q-3" target="8ZYj_ryop38k5bYqxM0Q-65">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="270" as="sourcePoint" />
+            <mxPoint x="440" y="220" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>

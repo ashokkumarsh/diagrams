@@ -1,0 +1,148 @@
+@startuml "Parental Controls"
+    title "Parental Controls"
+    skinparam ParticipantPadding 30
+
+    actor "User" as User #Cornsilk
+    participant "Kaveri Web App" as Kaveri #Cornsilk
+    participant "Parental Controls" as PC #Cornsilk
+    participant "Persistent Storage" as LocalStorage #Cornsilk
+    participant "NextGenAPI" as Services #Cornsilk
+
+    User -> Kaveri: Launch App
+    activate Kaveri #LightGreen
+    Kaveri -> PC: initialize
+    group Obtain PC Settings
+        activate PC
+        PC -[#Blue]> LocalStorage: Request: fetchSettings
+        activate LocalStorage
+
+        alt #e6ffe6 onSuccess
+            LocalStorage --[#Green]> PC: Response: {pcSettings}
+            deactivate LocalStorage
+
+            PC -> PC: pcSettings.hasChanged
+            alt false
+                rnote right of PC: getDefaultPcPin()
+                PC -[#Blue]> Services: Request: v1/brandingUiBundle
+                activate Services
+                alt onSuccess
+                    Services --[#Green]> PC: Response: {defaultPcPin}
+                else onError
+                    Services --[#Red]> PC: Empty or Error
+                    deactivate Services
+                    PC -> PC: setFallbackPcPin
+                    rnote right of PC #LightBlue: {defaultPcPin: '9999'}
+                end
+                rnote right of PC: getParentalSettings()
+                PC -[#Blue]> Services: Request: v1/deviceFeatureSearch
+                activate Services
+                alt onSuccess
+                    Services --[#Green]> PC: Response: {parentalSettings}
+                else onError
+                    Services --[#Red]> PC: Empty or Error
+                    deactivate Services
+                    PC -> PC: setFallBackParentalSettings
+                    rnote right of PC #LightBlue: {enablePc: true, hac: true}
+                end
+                rnote right of PC: getRatingInstructions()
+                PC -[#Blue]> Services: Request: v1/internalRatings
+                activate Services
+                alt onSuccess
+                    Services --[#Green]> PC: Response: {ratingType, ratingValue}
+                else onError
+                    Services --[#Red]> PC: Response: {Error}
+                    deactivate Services
+                end
+            else true
+                PC -> PC: pcSettings
+            end
+
+        else #ffe6e6 onFaliure
+            PC -[#Blue]> Services: Request: v1/brandingUiBundle
+            activate Services
+            alt onSuccess
+                Services --[#Green]> PC: Response: {defaultPcPin}
+            else onError
+                Services --[#Red]> PC: Empty or Error
+                deactivate Services
+                PC -> PC: setFallbackPcPin
+                rnote right of PC #LightBlue: {defaultPcPin: '9999'}
+            end
+
+            PC -[#Blue]> Services: Request: v1/deviceFeatureSearch
+            activate Services
+            alt onSuccess
+                Services --[#Green]> PC: Response: {parentalSettings}
+            else onError
+                Services --[#Red]> PC: Empty or Error
+                deactivate Services
+                PC -> PC: setFallBackParentalSettings
+                rnote right of PC #LightBlue: {enablePc: true, hac: true}
+            end
+
+            PC -[#Blue]> Services: Request: v1/internalRatings
+            activate Services
+            alt onSuccess
+                Services --[#Green]> PC: Response: {ratingType, ratingValue}
+            else onError
+                Services --[#Red]> PC: Response: {Error}
+                deactivate Services
+            end
+        end
+    end
+    PC -> Kaveri
+    deactivate PC
+
+    group UpdatePCSettings
+        Kaveri -> PC: Request: updatePcSettings(key, value)
+        activate PC
+        PC -> LocalStorage: update settings and set hasChanged=true
+        activate LocalStorage
+        alt onSuccess
+            LocalStorage --> PC
+            PC --> Kaveri
+        else onError
+            LocalStorage --[#Red]> PC: Response: {Error}
+            deactivate LocalStorage
+            PC --[#Red]> Kaveri: Response: {Error}
+            deactivate PC
+        end
+    end
+
+    group getPCSetting
+        Kaveri -> PC: Request: getPcSetting(key)
+        activate PC
+        alt onSuccess
+            PC --> Kaveri: Response: {value}
+        else onError
+            PC --[#Red]> Kaveri: Response: {Error}
+            deactivate PC
+        end
+    end
+
+    group PcViolationCheck
+        Kaveri -> PC: Request: checkPcViolations(isAdult, rating)
+        activate PC
+        alt onViolations
+            PC --> Kaveri: Response: {true}
+            rnote right of Kaveri #LightBlue: display enter pin overlay
+        else otherwise
+            PC --> Kaveri: Response: {false}
+            deactivate PC
+        end
+    end
+
+    group PcPinVerification
+        Kaveri -> PC: Request: verifyPcPin(pin)
+        activate PC
+        alt onSuccessfulVerification
+            PC --> Kaveri: Response: {true}
+        else otherwise
+            PC --> Kaveri: Response: {false}
+            rnote right of Kaveri #LightBlue: display incorrect pin overlay
+            deactivate PC
+        end
+    end
+
+    deactivate Kaveri
+@enduml
